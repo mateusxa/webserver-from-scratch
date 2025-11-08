@@ -1,4 +1,4 @@
-import { PROTOCOL_VERSION } from "./constant.js";
+import { PROTOCOL_VERSION } from "./constant.ts";
 
 export default class Response {
 
@@ -16,6 +16,10 @@ export default class Response {
 
     internalServerError() {
         return `${this.setupLine(500, 'INTERNAL SERVER ERROR')}\r\n\r\n`
+    }
+
+    timeout() {
+        return `${this.setupLine(408, 'Request Timeout')}\r\n\r\n`
     }
 
     success(payload?: Buffer, mimeType: string = 'application/octet-stream'): Buffer {

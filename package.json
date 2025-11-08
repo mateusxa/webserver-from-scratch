@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "dev": "tsx app.ts"
+    "dev": "tsx src/app.ts"
   },
   "type": "module",
   "devDependencies": {

@@ -1,4 +1,4 @@
-import { PROTOCOL_VERSION } from "./constant.js"
+import { PROTOCOL_VERSION } from "./constant.ts"
 
 export default class Request {
     method: string
@@ -19,9 +19,21 @@ export default class Request {
         if (!setupLine) {
             throw new Error(`HTTP Request Malformed: ${setupLine}`)
         }
-        const [method, route, protocol] = setupLine
-        if (!method || !route || !protocol) {
+        const [method, rawRoute, protocol] = setupLine
+        if (!method || !rawRoute || !protocol) {
             throw new Error(`HTTP Request Malformed: ${setupLine}`)
+        }
+        
+        let route
+        let queryString
+
+        if (rawRoute.includes('?')) {
+            [route, queryString] = rawRoute.split('?')
+        } else {
+            route = rawRoute
+        }
+        if(!route) {
+            throw new Error(`Invalid route: ${rawRoute}`)
         }
 
         if (protocol !== PROTOCOL_VERSION) {
