@@ -56,8 +56,8 @@ export default class Request {
                 console.log(`Error parsing header`)
                 continue
             }
-            headers[key] = value
+            headers[key] = value.toLowerCase()
         }
-        return new Request(method, route, headers, body)
+        return new Request(method.toUpperCase(), route, headers, body)
     }
 }
